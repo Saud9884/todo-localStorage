@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const todoInput = document.getElementById("todo-input");
+const todoInput = document.getElementById("todo-input");
 const addTaskBtn =  document.getElementById("add-task-btn");
 const todoList =  document.getElementById("todo-list");
 
@@ -25,7 +25,26 @@ addTaskBtn.addEventListener('click', () => {
 })
 
 function renderTask(task){
-    console.log(task);
+    const li = document.createElement("li");
+
+    li.setAttribute("data-id", task.id);
+    if(task.completed) li.classList.add("completed")
+    li.innerHTML = `
+    <span>${task.text}</span>
+    <button>Delete</button>`
+
+    li.addEventListener('click', (e) => {
+       if(e.target.tagName === 'BUTTON') return;
+       task.completed = !task.completed;
+       li.classList.toggle('completed')
+       saveTasks();
+    })
+
+    li.querySelector("button").addEventListener('click', (e) =>{
+        e.stopPropagation();
+    })
+
+    todoList.appendChild(li);
     
 }
 
