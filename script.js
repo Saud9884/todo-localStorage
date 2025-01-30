@@ -20,6 +20,7 @@ addTaskBtn.addEventListener('click', () => {
     
     tasks.push(newTask);
     saveTasks();
+    renderTask(newTask);
     todoInput.value = "" //Cleaning the input field
     
 })
@@ -42,6 +43,10 @@ function renderTask(task){
 
     li.querySelector("button").addEventListener('click', (e) =>{
         e.stopPropagation();
+        tasks = tasks.filter(t => t.id !== task.id)
+        li.remove()
+        saveTasks();
+        
     })
 
     todoList.appendChild(li);
